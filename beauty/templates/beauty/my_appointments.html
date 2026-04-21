@@ -1,0 +1,55 @@
+{% extends 'beauty/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0"><i class="fas fa-search"></i> Поиск записей</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Введите номер телефона</label>
+                        <input type="text" name="phone" class="form-control" placeholder="+7 (999) 123-45-67" value="{{ phone|default:'' }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Найти мои записи</button>
+                </form>
+            </div>
+        </div>
+
+        {% if appointments is not None %}
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h3 class="card-title mb-0"><i class="fas fa-list"></i> Ваши записи</h3>
+                </div>
+                <div class="card-body">
+                    {% if appointments %}
+                        {% for app in appointments %}
+                        <div class="border-bottom mb-3 pb-3">
+                            <p>
+                                <strong>Услуга:</strong> {{ app.service.name }}<br>
+                                <strong>Мастер:</strong> {{ app.master.name }}<br>
+                                <strong>Дата и время:</strong> {{ app.start_time|date:"d.m.Y H:i" }}<br>
+                                <strong>Статус:</strong>
+                                <span class="badge 
+                                    {% if app.status == 'new' %}bg-warning
+                                    {% elif app.status == 'confirmed' %}bg-info
+                                    {% elif app.status == 'completed' %}bg-success
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ app.get_status_display }}
+                                </span>
+                            </p>
+                            <small class="text-muted">Запись создана: {{ app.created_at|date:"d.m.Y" }}</small>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted">Записей не найдено</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

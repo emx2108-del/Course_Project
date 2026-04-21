@@ -1,0 +1,61 @@
+{% extends 'beauty/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center mb-5">
+        <h1 class="display-4">Добро пожаловать в салон красоты</h1>
+        <p class="lead">Профессиональный уход и красота для вас</p>
+        <a href="{% url 'beauty:appointment_create' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-calendar-check"></i> Записаться онлайн
+        </a>
+    </div>
+</div>
+
+<!-- Услуги -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Наши услуги</h2>
+    </div>
+    {% for service in services %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ service.name }}</h5>
+                <p class="card-text text-muted">{{ service.description|truncatewords:15 }}</p>
+                <p class="card-text">
+                    <strong>{{ service.price }} руб.</strong>
+                    <small class="text-muted"> | {{ service.duration_minutes }} мин.</small>
+                </p>
+                <a href="{% url 'beauty:service_detail' service.id %}" class="btn btn-outline-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Услуги пока не добавлены</p>
+    {% endfor %}
+</div>
+
+<!-- Мастера -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mb-4">Наши мастера</h2>
+    </div>
+    {% for master in masters %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center shadow-sm">
+            <div class="card-body">
+                <i class="fas fa-user-circle fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">{{ master.name }}</h5>
+                <p class="card-text">{{ master.specialization|default:"Профессионал своего дела" }}</p>
+                <a href="{% url 'beauty:master_detail' master.id %}" class="btn btn-outline-secondary">О мастере</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center">Мастера пока не добавлены</p>
+    {% endfor %}
+    <div class="col-12 text-center mt-3">
+        <a href="{% url 'beauty:masters_list' %}" class="btn btn-link">Все мастера →</a>
+    </div>
+</div>
+{% endblock %}

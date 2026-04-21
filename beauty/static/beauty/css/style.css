@@ -1,0 +1,41 @@
+/* Дополнительные стили для сайта салона красоты */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: #d4a5a5;
+    border-color: #d4a5a5;
+}
+
+.btn-primary:hover {
+    background-color: #c18f8f;
+    border-color: #c18f8f;
+}
+
+.text-primary {
+    color: #d4a5a5 !important;
+}
+
+.bg-primary {
+    background-color: #d4a5a5 !important;
+}
+
+footer {
+    margin-top: auto;
+}
