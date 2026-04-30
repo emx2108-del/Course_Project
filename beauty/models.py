@@ -35,7 +35,8 @@ class Service(models.Model):
 class Master(models.Model):
     name = models.CharField(max_length=100, verbose_name="Имя мастера")
     specialization = models.CharField(max_length=200, blank=True, verbose_name="Специализация")
-    photo = models.CharField(max_length=255, blank=True, null=True, verbose_name="Фото (URL)")
+    photo = models.ImageField(upload_to='masters/', blank=True, null=True, verbose_name="Фото")
+    bio = models.TextField(blank=True, verbose_name="Биография")  # ← ДОБАВЬТЕ ЭТУ СТРОКУ
     services = models.ManyToManyField(
         Service,
         related_name='masters',

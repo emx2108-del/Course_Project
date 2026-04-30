@@ -1,3 +1,4 @@
+cat > beauty/templates/beauty/masters.html << 'EOF'
 {% extends 'beauty/base.html' %}
 
 {% block content %}
@@ -11,14 +12,17 @@
             <div class="card-body">
                 <i class="fas fa-user-circle fa-4x text-primary mb-3"></i>
                 <h4 class="card-title">{{ master.name }}</h4>
-                <p class="card-text">{{ master.specialization|default:"Специалист широкого профиля" }}</p>
-                <p class="card-text small text-muted">{{ master.bio|truncatewords:20 }}</p>
-                <a href="{% url 'beauty:master_detail' master.id %}" class="btn btn-primary">Подробнее</a>
+                <p class="card-text text-muted">{{ master.specialization|default:"Специалист" }}</p>
+                <p class="card-text small text-muted">{{ master.bio|truncatewords:15|default:"Профессионал своего дела" }}</p>
+                <a href="{% url 'beauty:master_detail' master.id %}" class="btn btn-primary btn-sm">Подробнее</a>
             </div>
         </div>
     </div>
     {% empty %}
-    <p class="text-center">Мастера пока не добавлены</p>
+    <div class="col-12">
+        <p class="text-center">Мастера пока не добавлены</p>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
+EOF
